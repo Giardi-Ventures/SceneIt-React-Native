@@ -11,12 +11,14 @@ export function TextInput(props: TextInputProps) {
 
   return (
     <Element {...elementProps}>
-      {({value, onChange}) => {
+      {({value, onChange, handleBlur}) => {
         return (
           <NativeTextInput
+            autoCapitalize="none"
             placeholder={placeholder}
             value={value}
             onChangeText={onChange}
+            onBlur={handleBlur}
           />
         );
       }}

@@ -7,7 +7,7 @@ import {Container} from "../container.tsx";
 
 export type FormProps = {
   values: Object;
-  onSubmit: (values: object) => Promise<void> | void;
+  onSubmit: (values: any) => Promise<void> | any;
   children: React.ReactNode | React.ReactNode[];
   schema?: Schema | Schema[];
   index?: number;

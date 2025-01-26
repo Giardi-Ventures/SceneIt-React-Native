@@ -1,22 +1,22 @@
-import {SafeAreaView, Text} from "react-native";
-import {TextInput} from "./components/elements/inputs/text-input.tsx";
-import {Button} from "./components/buttons/button.tsx";
-import {FormButton} from "./components/form/buttons/form-button.tsx";
-import {Form} from "./components/form/form.tsx";
-import z from "zod";
+import "react-native-gesture-handler";
+
+import {NavigationContainer} from "@react-navigation/native";
+import {RootStack} from "./layouts/root-stack.tsx";
+import {reduxPersist, reduxStore} from "./redux";
+import {PersistGate} from "redux-persist/integration/react";
+import {Provider} from "react-redux";
+import {setupCore} from "@Giardi-Ventures/SceneIt-Core";
+
+setupCore(reduxStore);
 
 export function Index() {
   return (
-    <SafeAreaView>
-      <Text>Hi</Text>
-
-      <Form values={{dog: ""}} schema={z.object({dog: z.string().min(1)})} onSubmit={(values) => {
-        console.log("Values", values);
-      }}>
-        <TextInput placeholder="Dogs" name="dog" />
-
-        <FormButton label="Dogs" />
-      </Form>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Provider store={reduxStore}>
+        <PersistGate loading={null} persistor={reduxPersist}>
+          <RootStack />
+        </PersistGate>
+      </Provider>
+    </NavigationContainer>
   );
 }
