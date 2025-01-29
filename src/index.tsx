@@ -6,6 +6,7 @@ import {reduxPersist, reduxStore} from "./redux";
 import {PersistGate} from "redux-persist/integration/react";
 import {Provider} from "react-redux";
 import {setupCore} from "@Giardi-Ventures/SceneIt-Core";
+import {LogBox} from "react-native";
 
 setupCore(reduxStore);
 

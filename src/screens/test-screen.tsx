@@ -1,5 +1,5 @@
-import {apiRequest, useRequest, useUserStore} from "@Giardi-Ventures/SceneIt-Core";
-import {Image, SafeAreaView, Text} from "react-native";
+import {useInfiniteList, useUserStore} from "@Giardi-Ventures/SceneIt-Core";
+import {FlatList, Image, SafeAreaView, Text} from "react-native";
 import {Form} from "../components/form/form.tsx";
 import z from "zod";
 import {TextInput} from "../components/elements/inputs/text-input.tsx";
@@ -12,11 +12,12 @@ export function TestScreen() {
   const {navigate} = useNavigation<any>();
   const {account} = useUserStore();
 
-  const {isLoading, error, data, dispatch} = useRequest((body) => {
-    return apiRequest({url: "test", method: "POST", body});
+  const {isLoading, isRefreshing, data, hasMore, loadMore, dispatch} = useInfiniteList<any, any[]>({
+    url: "test",
+    method: "POST",
   });
 
-  console.log("Dogs", error, isLoading, data);
+  console.log("Dogs", isLoading, isRefreshing, data);
 
   return (
     <SafeAreaView>
@@ -30,7 +31,7 @@ export function TestScreen() {
 
           const data = await dispatch({search: dog});
 
-          console.log("DATA", data);
+          console.log("DATA", data.cursor);
         }}
       >
         <TextInput placeholder="Dogs" name="dog" />
@@ -44,14 +45,22 @@ export function TestScreen() {
         <Text>{JSON.stringify(account)}</Text>
       )}
 
-      {data?.results?.map((item) => {
-        return (
-          <Container>
-            <Text>{item.media_type}</Text>
-            <Image width={100} height={100} source={{uri: "https://image.tmdb.org/t/p/original" + item.poster_path}} />
-          </Container>
-        );
-      })}
+      {hasMore && <Button label="Next" onPress={() => loadMore()} />}
+
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => {
+          return (
+            <Container>
+              <Text>
+                {item.name} - {item.type}
+              </Text>
+              <Image width={100} height={100} source={{uri: "https://image.tmdb.org/t/p/original" + item.backdrop}} />
+            </Container>
+          );
+        }}
+      />
     </SafeAreaView>
   );
 }

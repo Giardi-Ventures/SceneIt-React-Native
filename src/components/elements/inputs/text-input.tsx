@@ -16,9 +16,9 @@ export function TextInput(props: TextInputProps) {
           <NativeTextInput
             autoCapitalize="none"
             placeholder={placeholder}
-            value={value}
             onChangeText={onChange}
             onBlur={handleBlur}
+            value={value}
           />
         );
       }}

@@ -58,6 +58,13 @@ export function Element(props: ElementProps) {
     id = name || "";
   }
 
+  const originalOnChange = onChange;
+  onChange = (value) => {
+    originalOnChange(value);
+
+    onValueChange && onValueChange(value);
+  }
+
   return (
     <Container {...containerProps}>
       {children &&
