@@ -7,6 +7,7 @@ import {PersistGate} from "redux-persist/integration/react";
 import {Provider} from "react-redux";
 import {setupCore} from "@Giardi-Ventures/SceneIt-Core";
 import {LogBox} from "react-native";
+import {ModalContainer} from "./layouts/containers/modal-container.tsx";
 
 setupCore(reduxStore);
 
@@ -15,7 +16,9 @@ export function Index() {
     <NavigationContainer>
       <Provider store={reduxStore}>
         <PersistGate loading={null} persistor={reduxPersist}>
-          <RootStack />
+          <ModalContainer>
+            <RootStack />
+          </ModalContainer>
         </PersistGate>
       </Provider>
     </NavigationContainer>

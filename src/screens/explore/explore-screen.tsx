@@ -5,10 +5,13 @@ import {TextInput} from "../../components/elements/inputs/text-input.tsx";
 import {useState} from "react";
 import {useInfiniteList} from "@Giardi-Ventures/SceneIt-Core";
 import {FlatList, Image} from "react-native";
+import {useModal} from "../../layouts/containers/modal-container.tsx";
+import {InputModal} from "../../components/modal/modal.tsx";
 
 export function ExploreScreen() {
   const [typingTimeout, setTypingTimeout] = useState<number>(null);
   const [search, setSearch] = useState<string>("");
+  const {showModal} = useModal();
 
   const {isLoading, isRefreshing, data, hasMore, loadMore, dispatch} = useInfiniteList<any, any[]>({
     url: "test",
@@ -38,6 +41,7 @@ export function ExploreScreen() {
         <Text>All Media</Text>
         <Text>Movies</Text>
         <Text>TV</Text>
+        <Text>People</Text>
       </Row>
 
       <FlatList
@@ -50,7 +54,7 @@ export function ExploreScreen() {
         }}
         renderItem={({item}) => {
           return (
-            <Container>
+            <Container onPress={() => showModal(InputModal, {media: item})}>
               <Text>
                 {item.name} - {item.type}
               </Text>
