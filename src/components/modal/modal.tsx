@@ -18,8 +18,8 @@ export function InputModal({media, onClose}: InputProps) {
     setScore(score);
 
     const {data, error} = await fetchComparisons({
-      mediaId: "mov_" + media.id,
-      genres: media.genres,
+      mediaId: media.id,
+      mediaType: media.type,
       rating: "disliked",
     });
 
@@ -31,6 +31,7 @@ export function InputModal({media, onClose}: InputProps) {
   };
 
   const submitScores = async () => {
+    console.log("Comp", comparisons);
     console.log("Payload", {
       mediaId: media.id,
       logo: media.poster,
@@ -39,23 +40,21 @@ export function InputModal({media, onClose}: InputProps) {
       genres: media.genres,
       comparisons: comparisons.map((item) => {
         return {
+          mediaId: item.media.mediaId,
           rating: item.rating,
-          mediaId: item.mediaId,
           ratingId: item.id,
         };
       }),
     });
 
     const {data, error} = await rateMedia({
+      mediaType: media.type,
       mediaId: media.id,
-      logo: media.poster,
-      title: media.name,
       rating: score,
-      genres: media.genres,
       comparisons: comparisons.map((item) => {
         return {
+          mediaId: item.media.mediaId,
           rating: item.rating,
-          mediaId: item.mediaId,
           ratingId: item.id,
         };
       }),
@@ -101,7 +100,7 @@ export function InputModal({media, onClose}: InputProps) {
       {comparisons?.map((item) => {
         return (
           <Row>
-            <Text>{item.title}: </Text>
+            <Text>{item.media.title}: </Text>
 
             <Container onPress={() => (item.rating = "better")}>
               <Text>Better</Text>

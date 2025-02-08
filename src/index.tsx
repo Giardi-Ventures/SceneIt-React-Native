@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+import "./injectors";
 
 import {NavigationContainer} from "@react-navigation/native";
 import {RootStack} from "./layouts/root-stack.tsx";

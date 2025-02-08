@@ -54,6 +54,8 @@ export type ContainerProps = {
   borderRight?: AnimatableNumericValue;
   borderBottom?: AnimatableNumericValue;
   borderLeft?: AnimatableNumericValue;
+
+  index?: number;
 };
 
 const SIMPLE_ASSIGNMENTS = [
@@ -93,6 +95,7 @@ const MAPPED_ASSIGNMENTS = {
   borderLeft: "borderLeftWidth",
 
   background: "backgroundColor",
+  index: "zIndex",
 };
 
 const mapProps = constructPropertyMapper(SIMPLE_ASSIGNMENTS, MAPPED_ASSIGNMENTS);
