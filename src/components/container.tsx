@@ -6,13 +6,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ViewStyle,
-  View,
+  View, ViewComponent,
 } from "react-native";
 
 export type ContainerProps = {
   children?: any;
 
   onPress?: () => void;
+  onLongPress?: () => void;
 
   safe?: boolean;
   flex?: number | boolean;
@@ -103,13 +104,14 @@ const mapProps = constructPropertyMapper(SIMPLE_ASSIGNMENTS, MAPPED_ASSIGNMENTS)
 export function Container({
   children,
   onPress,
+  onLongPress,
   flex,
   safe,
   style = {},
   ...extra
 }: ContainerProps) {
   const containerStyle: ViewStyle = mapProps(extra, style);
-  const componentProps = {...extra};
+  const componentProps : any = {...extra};
 
   if (flex) {
     if (typeof flex === "boolean") {
@@ -119,13 +121,12 @@ export function Container({
     }
   }
 
-  let ViewComponent = View;
-  if (onPress) {
-    // @ts-ignore
+  let ViewComponent : any = View;
+  if (onPress || onLongPress) {
     ViewComponent = TouchableOpacity;
 
-    // @ts-ignore
     componentProps.onPress = onPress;
+    componentProps.onLongPress = onLongPress;
   }
 
   if (safe) {

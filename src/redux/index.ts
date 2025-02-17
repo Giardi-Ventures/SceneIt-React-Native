@@ -1,7 +1,7 @@
+import {CommonReducers, CoreReducers} from "@Giardi-Ventures/SceneIt-Core";
 import {persistReducer, persistStore} from "redux-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {CoreReducers} from "@Giardi-Ventures/SceneIt-Core";
 import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from "redux-persist/es/constants";
 
 const persistConfig = {
@@ -10,7 +10,7 @@ const persistConfig = {
   whitelist: ["auth", "user"],
 };
 
-const persistedReducer = persistReducer(persistConfig, combineReducers(CoreReducers));
+const persistedReducer = persistReducer(persistConfig, combineReducers({...CoreReducers, ...CommonReducers}));
 export const reduxStore = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

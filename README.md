@@ -22,3 +22,8 @@
 View Modal
 - Viewed on 
 - Disliked, Liked, Loved
+
+Easy Todo
+- Waitlist
+- Rating Page
+- Media Page
