@@ -5,6 +5,7 @@
 - Hold to Not Watch
 - Swipe to Favorite
 - Reorder Watch List
+- Custom List with Loading and Drag
 
 ## Avery List
 - Watch Later

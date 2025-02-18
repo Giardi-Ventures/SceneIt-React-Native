@@ -3,36 +3,19 @@ import {Container} from "../../components/container.tsx";
 import {Text} from "../../components/text/text.tsx";
 import {Row} from "../../components/row.tsx";
 import {useEffect, useState} from "react";
-import {fetchRatings, fetchViewings, Rating, Viewing} from "@Giardi-Ventures/SceneIt-Core";
+import {fetchRatings, fetchViewings, ListStore, Rating, Viewing} from "@Giardi-Ventures/SceneIt-Core";
 import moment from "moment/moment";
 import {useNavigation} from "@react-navigation/native";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {StackTab} from "../../components/tab/stack-tab.tsx";
 import {Tab} from "../../components/tab/tab.tsx";
+import {useSelector} from "react-redux";
 
 export function WatchScreen() {
-  const [isWatchLater, setWatchLater] = useState<boolean>(false);
-  const [ratings, setRatings] = useState<Rating[]>([]);
-  const [viewings, setViewing] = useState<Viewing[]>([]);
   const {navigate} = useNavigation<any>();
+  const {watch} = useSelector(ListStore);
 
-  useEffect(() => {
-    fetchViewings().then(({data, error}) => {
-      if (error) {
-        return console.log("Error", error);
-      }
-
-      setViewing(data);
-    });
-
-    fetchRatings().then(({data, error}) => {
-      if (error) {
-        return console.log("Error", error);
-      }
-
-      setRatings(data);
-    });
-  }, []);
+  console.log("Watch", watch);
 
   return (
     <Container flex>
@@ -43,7 +26,7 @@ export function WatchScreen() {
 
         <Tab id="tv" label="TV">
           <FlatList
-            data={isWatchLater ? ratings : viewings}
+            data={watch?.items ?? []}
             ItemSeparatorComponent={() => <Container height={12} />}
             contentContainerStyle={{paddingHorizontal: 10, paddingVertical: 10}}
             renderItem={({item, index}: {item: any; index: number}) => {

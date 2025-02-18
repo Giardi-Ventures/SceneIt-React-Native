@@ -13,6 +13,8 @@ import {
   ViewingStore,
   useRequest,
   fetchViewings,
+  addListItem,
+  addToWatchList,
 } from "@Giardi-Ventures/SceneIt-Core";
 import {Dimensions, FlatList, Image} from "react-native";
 import {useModal} from "../../layouts/containers/modal-container.tsx";
@@ -103,7 +105,7 @@ export function ExploreScreen() {
                   // onPress={() => showModal(InputModal, {media: item})}
                 >
                   <Container
-                    onPress={() => {}}
+                    onPress={async () => console.log(await addToWatchList(media.unique))}
                     background="rgba(255, 255, 255, 0.9)"
                     p={10}
                     position="absolute"
@@ -148,9 +150,11 @@ export function ExploreScreen() {
         </Tab>
 
         <Tab id="movie" label="Movie">
+          <Text>Hi</Text>
         </Tab>
 
         <Tab id="tv" label="TV">
+          <Text>Hi</Text>
         </Tab>
       </StackTab>
     </Container>
