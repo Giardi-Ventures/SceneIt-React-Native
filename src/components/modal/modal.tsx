@@ -3,7 +3,7 @@ import {Container} from "../container.tsx";
 import {Text} from "../text/text.tsx";
 import {ModalProps} from "../../layouts/containers/modal-container.tsx";
 import {Row} from "../row.tsx";
-import {fetchComparisons, Media, rateMedia} from "@Giardi-Ventures/SceneIt-Core";
+import {fetchComparisons, fetchRatings, Media, rateMedia, viewMedia} from "@Giardi-Ventures/SceneIt-Core";
 import {useState} from "react";
 
 export type InputProps = ModalProps & {
@@ -31,29 +31,13 @@ export function InputModal({media, onClose}: InputProps) {
   };
 
   const submitScores = async () => {
-    console.log("Comp", comparisons);
-    console.log("Payload", {
-      mediaId: media.id,
-      logo: media.poster,
-      title: media.name,
-      rating: score,
-      genres: media.genres,
-      comparisons: comparisons.map((item) => {
-        return {
-          mediaId: item.media.mediaId,
-          rating: item.rating,
-          ratingId: item.id,
-        };
-      }),
-    });
-
     const {data, error} = await rateMedia({
       mediaType: media.type,
       mediaId: media.id,
       rating: score,
       comparisons: comparisons.map((item) => {
         return {
-          mediaId: item.media.mediaId,
+          mediaId: item.media.id,
           rating: item.rating,
           ratingId: item.id,
         };
@@ -65,6 +49,9 @@ export function InputModal({media, onClose}: InputProps) {
     } else {
       console.log(error);
     }
+
+    await viewMedia({mediaUnique: media.unique});
+    await fetchRatings();
   };
 
   console.log("Daddy", comparisons, score);
@@ -100,7 +87,7 @@ export function InputModal({media, onClose}: InputProps) {
       {comparisons?.map((item) => {
         return (
           <Row>
-            <Text>{item.media.title}: </Text>
+            <Text>{item.media.name}: </Text>
 
             <Container onPress={() => (item.rating = "better")}>
               <Text>Better</Text>
