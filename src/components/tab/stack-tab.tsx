@@ -15,6 +15,7 @@ export type StackTabProps = {
 
 export function StackTab({children}: StackTabProps) {
   const tabs = useChildren<TabProps>(children, Tab);
+
   console.log("TABS", tabs);
 
   return (
@@ -23,8 +24,6 @@ export function StackTab({children}: StackTabProps) {
         id={undefined}
         tabBar={({state, navigation}) => {
           const currentRoute = state.routes[state.index].name;
-
-          console.log(currentRoute);
 
           return (
             <Row height={50} background="white" justify="evenly">
