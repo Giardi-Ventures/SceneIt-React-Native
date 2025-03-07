@@ -1,28 +1,29 @@
-import {Dimensions, FlatList, Image} from "react-native";
+import {FlatList} from "react-native";
 import {Container} from "../../components/container.tsx";
 import {Text} from "../../components/text/text.tsx";
-import {Row} from "../../components/row.tsx";
-import {useEffect, useState} from "react";
-import {fetchRatings, fetchViewings, ListStore, Rating, Viewing} from "@Giardi-Ventures/SceneIt-Core";
-import moment from "moment/moment";
+import {ListStore} from "@Giardi-Ventures/SceneIt-Core";
 import {useNavigation} from "@react-navigation/native";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {StackTab} from "../../components/tab/stack-tab.tsx";
-import {Tab} from "../../components/tab/tab.tsx";
+import {Tab} from "../../components/tab/common/tab.tsx";
 import {useSelector} from "react-redux";
 import {MediaCard} from "../../features/media-card.tsx";
+import {useTranslation} from "react-i18next";
 
 export function WatchScreen() {
-  const {navigate} = useNavigation<any>();
   const {watch} = useSelector(ListStore);
+  const {t} = useTranslation();
 
-  console.log("Watch", watch);
+  console.log("Watch", t("translation:welcome"));
 
   return (
     <Container flex>
+      <Container>
+        <Text>Search, Filter, Genres</Text>
+      </Container>
+
       <StackTab>
         <Tab id="movie" label="Movies">
-          <Text>Tab Two</Text>
+          <Text>{t("translation:welcome")}</Text>
         </Tab>
 
         <Tab id="tv" label="TV">

@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+import "./locales/locales.ts";
 import "./injectors";
 
 import {NavigationContainer} from "@react-navigation/native";

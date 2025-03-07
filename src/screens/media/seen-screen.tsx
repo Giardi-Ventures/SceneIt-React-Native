@@ -8,7 +8,7 @@ import moment from "moment/moment";
 import {useNavigation} from "@react-navigation/native";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {StackTab} from "../../components/tab/stack-tab.tsx";
-import {Tab} from "../../components/tab/tab.tsx";
+import {Tab} from "../../components/tab/common/tab.tsx";
 import {useSelector} from "react-redux";
 import {MediaCard} from "../../features/media-card.tsx";
 import {MediaList} from "../../features/media-list.tsx";

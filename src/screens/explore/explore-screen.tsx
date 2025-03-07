@@ -5,7 +5,7 @@ import {useState} from "react";
 import {ViewingStore} from "@Giardi-Ventures/SceneIt-Core";
 import {useModal} from "../../layouts/containers/modal-container.tsx";
 import {useSelector} from "react-redux";
-import {Tab} from "../../components/tab/tab.tsx";
+import {Tab} from "../../components/tab/common/tab.tsx";
 import {StackTab} from "../../components/tab/stack-tab.tsx";
 import {MediaCard} from "../../features/media-card.tsx";
 import {SearchList} from "../../components/lists/search-list.tsx";

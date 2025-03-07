@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {TestScreen} from "../screens/test-screen.tsx";
 import {BottomStack} from "./bottom-stack.tsx";
 import {EntryStack} from "./entry-stack.tsx";
-import {MovieScreen} from "../screens/media/movie-screen.tsx";
+import {MovieScreen} from "../screens/media/movie/movie-screen.tsx";
 
 const Stack = createNativeStackNavigator();
 

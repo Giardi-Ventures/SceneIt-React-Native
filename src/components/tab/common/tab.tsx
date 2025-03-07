@@ -1,5 +1,6 @@
 import React, {ReactNode} from "react";
-import {Container} from "../container.tsx";
+import {ScrollView} from "react-native";
+import {Container} from "../../container.tsx";
 
 export type TabProps = {
   id: string;
