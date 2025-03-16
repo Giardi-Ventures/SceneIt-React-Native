@@ -26,12 +26,10 @@ export function TabBar({children}: StackTabProps) {
   }, [children]);
 
   const RenderChildren = useMemo(() => {
-    return children.map((item) => {
+    return children.filter((item) => {
       return item.type !== Tab;
     });
   }, [children]);
-
-  console.log(RenderChildren);
 
   return (
     <TabBarContext.Provider value={{tabs, current: currentTab ?? tabs[0].id, setTab: setCurrentTab}}>

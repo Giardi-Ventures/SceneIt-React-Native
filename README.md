@@ -28,3 +28,11 @@ Easy Todo
 - Waitlist
 - Rating Page
 - Media Page
+
+
+How do we want discussion?
+- Like Reddit?
+- Feed then Top?
+- By Day
+
+We need to friend 

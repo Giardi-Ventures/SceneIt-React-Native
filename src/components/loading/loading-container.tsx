@@ -5,8 +5,8 @@ import {Text} from "react-native";
 import {Button} from "../buttons/button.tsx";
 import {useNavigation} from "@react-navigation/native";
 
-export type LoadingContainerProps<T> = {
-  children: ReactNode | (ReactElement | ((d) => {}))[]; // ✅ Allows JSX or function-based children
+export type LoadingContainerProps<DataType> = {
+  children: ReactNode | (ReactElement | ((data: DataType) => {}))[];
   fetchBody: FetchPayload;
 };
 
@@ -26,7 +26,7 @@ export function LoadingContainerError({children = null}: ErrorContainer) {
   );
 }
 
-export function LoadingContainer({children, fetchBody}: LoadingContainerProps<unknown>): any {
+export function LoadingContainer<DataType = any>({children, fetchBody}: LoadingContainerProps<DataType>): any {
   const {cleanChildren, errorChildren} = useMemo(() => {
     const childArray = Array.isArray(children) ? children : [children];
 
@@ -80,7 +80,7 @@ export function LoadingContainer({children, fetchBody}: LoadingContainerProps<un
   // PROP BASED ON ERROR
 
   return (
-    <Container safe>
+    <Container background="white" flex>
       {cleanChildren.map((item) => {
         if (typeof item === "function") {
           return item(data);

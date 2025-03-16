@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ViewStyle,
-  View, ViewComponent,
+  View,
+  ViewComponent,
 } from "react-native";
 
 export type ContainerProps = {
@@ -56,19 +57,23 @@ export type ContainerProps = {
   borderBottom?: AnimatableNumericValue;
   borderLeft?: AnimatableNumericValue;
 
+  items?: "start" | "end" | "center" | "stretch" | "baseline";
+  justify?: "start" | "end" | "center" | "between" | "around" | "evenly";
+
   index?: number;
+
+  debug?: boolean;
 };
 
-const SIMPLE_ASSIGNMENTS = [
-  "width",
-  "height",
-  "top",
-  "right",
-  "bottom",
-  "left",
-  "position",
-  "overflow",
-];
+const VALUE_ASSIGNMENTS = {
+  start: "flex-start",
+  end: "flex-end",
+  between: "space-between",
+  around: "space-around",
+  evenly: "space-evenly",
+};
+
+const SIMPLE_ASSIGNMENTS = ["width", "height", "top", "right", "bottom", "left", "position", "overflow"];
 
 const MAPPED_ASSIGNMENTS = {
   p: "padding",
@@ -97,21 +102,22 @@ const MAPPED_ASSIGNMENTS = {
 
   background: "backgroundColor",
   index: "zIndex",
+
+  items: "alignItems",
+  justify: "justifyContent",
 };
 
 const mapProps = constructPropertyMapper(SIMPLE_ASSIGNMENTS, MAPPED_ASSIGNMENTS);
 
-export function Container({
-  children,
-  onPress,
-  onLongPress,
-  flex,
-  safe,
-  style = {},
-  ...extra
-}: ContainerProps) {
+export function Container({children, onPress, onLongPress, flex, safe, style = {}, debug, ...extra}: ContainerProps) {
   const containerStyle: ViewStyle = mapProps(extra, style);
-  const componentProps : any = {...extra};
+  const componentProps: any = {...extra};
+
+  for (let key of Object.keys(containerStyle)) {
+    if (containerStyle[key] in VALUE_ASSIGNMENTS) {
+      containerStyle[key] = VALUE_ASSIGNMENTS[containerStyle[key]];
+    }
+  }
 
   if (flex) {
     if (typeof flex === "boolean") {
@@ -121,7 +127,7 @@ export function Container({
     }
   }
 
-  let ViewComponent : any = View;
+  let ViewComponent: any = View;
   if (onPress || onLongPress) {
     ViewComponent = TouchableOpacity;
 
@@ -137,6 +143,10 @@ export function Container({
         </ViewComponent>
       </SafeAreaView>
     );
+  }
+
+  if (debug) {
+    console.log("CONTAINER PROPS", containerStyle, componentProps);
   }
 
   return (
